@@ -211,6 +211,7 @@ rfm["segment"] = rfm["RFM_SCORE"].replace(seg_map, regex=True)
 # 1. Segmentlerin recency, frequnecy ve monetary ortalamalarını inceleyiniz.
 
 rfm[["segment", "recency", "frequency", "monetary"]].groupby("segment").agg(["mean", "count"])
+
 rfm.groupby('segment').agg({"recency": "mean",
                             "frequency":"mean",
                             "monetary":"mean"})
@@ -226,7 +227,7 @@ rfm.groupby('segment').agg({"recency": "mean",
 
 target_segments_master_ids = rfm[rfm["segment"].isin(["champions","loyal_customers"])]["master_id"]
 customer_ids = df[(df['master_id'].isin(target_segments_master_ids)) & (df["interested_in_categories_12"].str.contains('KADIN'))]['master_id']
-customer_ids.to_csv('yeni_marka_hedef_kadın_müşteri_id.csv', index=False)
+customer_ids.to_csv('yeni_marka_hedef_musteri_ids.csv', index=False)
 
 
 # b. Erkek ve Çoçuk ürünlerinde %40'a yakın indirim planlanmaktadır. Bu indirimle ilgili kategorilerle ilgilenen geçmişte iyi müşterilerden olan ama uzun süredir
@@ -238,7 +239,7 @@ target_customers = rfm[rfm["segment"].isin(["hibernating", "cant_loose", "new_cu
 
 customer_ids_1 = df[(df['master_id'].isin(target_customers))]["master_id"]
 
-customer_ids_1.to_csv('yeni_marka_hedef_erkek_cocuk_id.csv', index=False)
+customer_ids_1.to_csv('indirim_hedef_musteri_ids.csv', index=False)
 
 
 (df["interested_in_categories_12"].str.contains("ERKEK") | df["interested_in_categories_12"].str.contains("COCUK")).sum()
