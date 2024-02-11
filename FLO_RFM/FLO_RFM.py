@@ -234,8 +234,7 @@ customer_ids.to_csv('yeni_marka_hedef_musteri_ids.csv', index=False)
 # alışveriş yapmayan ve yeni gelen müşteriler özel olarak hedef alınmak isteniliyor. Uygun profildeki müşterilerin id'lerini csv dosyasına indirim_hedef_müşteri_ids.csv
 # olarak kaydediniz.
 
-(df["interested_in_categories_12"].str.contains("ERKEK") | df["interested_in_categories_12"].str.contains("COCUK")).sum()
-target_customers = rfm[rfm["segment"].isin(["hibernating","cant_loose","new_customers"]) &
-                         (df["interested_in_categories_12"].str.contains("ERKEK") | df["interested_in_categories_12"].str.contains("COCUK") )]["master_id"]
+target_customers = rfm[rfm["segment"].isin(["hibernating", "cant_loose", "new_customers"]) &
+                       (df["interested_in_categories_12"].str.contains("ERKEK", "ÇOCUK"))]["master_id"]
 customer_ids_1 = df[(df['master_id'].isin(target_customers))]["master_id"]
-customer_ids_1.to_csv('indirim_hedef_musteri_ids.csv', index=False)
+customer_ids_1.to_csv('indirim_hedef_müşteri_ids.csv', index=False)
